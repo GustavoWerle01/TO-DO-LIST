@@ -11,8 +11,8 @@ import java.util.List;
 
 public class CrudHelperImpl implements CRUDHelper<Todo> {
 
-    private DbHandler handler = null;
-    private static final String TABLE_NAME = "todos";
+    private final DbHandler handler;
+    private static final String TABLE_NAME = "tasks";
 
     public CrudHelperImpl(DbHandler handler) {
         this.handler = handler;
@@ -31,23 +31,8 @@ public class CrudHelperImpl implements CRUDHelper<Todo> {
     }
 
     @Override
-    public Todo findById(int id) {
-        SQLiteDatabase db = this.handler.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, new String[] {"id", "title", "description"},
-                "id = ?", new String[] {(String.valueOf(id))}, null, null, null);
-
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-
-        Todo todo = new Todo(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
-        return todo;
-    }
-
-    @Override
     public List<Todo> findAll() {
-        List<Todo> list = new ArrayList<Todo>();
+        List<Todo> list = new ArrayList<>();
         SQLiteDatabase db = this.handler.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
@@ -58,17 +43,8 @@ public class CrudHelperImpl implements CRUDHelper<Todo> {
                 list.add(todo);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         return list;
-    }
-
-    @Override
-    public int update(Todo todo) {
-        SQLiteDatabase db = this.handler.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("title", todo.getTitle());
-        values.put("description", todo.getDescription());
-        return db.update(TABLE_NAME, values, " id = ?", new String[] { String.valueOf(todo.getId())});
     }
 
     @Override

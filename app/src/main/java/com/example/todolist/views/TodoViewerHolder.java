@@ -1,6 +1,5 @@
 package com.example.todolist.views;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,19 +10,20 @@ import com.example.todolist.entities.Todo;
 
 class TodoViewerHolder extends RecyclerView.ViewHolder {
 
-    private TextView txtTodoId;
     private TextView txtTodoTitle;
     private TextView txtTodoDesc;
 
     public TodoViewerHolder(View view) {
         super(view);
-
-        this.txtTodoTitle = (TextView) view.findViewById(R.id.todo_list);
-        this.txtTodoDesc = (TextView) view.findViewById(R.id.todo_desc);
-        this.txtTodoId = (TextView) view.findViewById(R.id.todo_id);
+        findUsefulComponents(view);
     }
 
-    public void bindElements(Context ctx, Todo todo){
+    private void findUsefulComponents(View view) {
+        txtTodoTitle = (TextView) view.findViewById(R.id.todo_list);
+        txtTodoDesc = (TextView) view.findViewById(R.id.todo_desc);
+    }
+
+    public void fill(Todo todo){
         txtTodoTitle.setId(Integer.parseInt(todo.getId().toString()));
         txtTodoTitle.setText(todo.getTitle());
         txtTodoDesc.setText(todo.getDescription());

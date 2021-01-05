@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHandler extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "db_test";
+    public static final String DATABASE_NAME = "todo_list";
     public static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "todos";
+    private static final String TABLE_NAME = "tasks";
 
     public DbHandler(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoViewerHolder>{
 
-    private Context ctx;
-    private List<Todo> todoList;
+    private final Context ctx;
+    private final List<Todo> todoList;
 
     public TodoListAdapter(Context ctx, List<Todo> todoList) {
         this.ctx = ctx;
@@ -29,15 +29,13 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoViewerHolder>{
     @Override
     public void
      onBindViewHolder(TodoViewerHolder holder, int pos) {
-        holder.bindElements(this.ctx, todoList.get(pos));
+        holder.fill(todoList.get(pos));
     }
 
     @Override
     public int getItemCount() {
-        if (todoList == null) {
+        if (todoList == null)
             return 0;
-        }
-
         return todoList.size();
     }
 }
