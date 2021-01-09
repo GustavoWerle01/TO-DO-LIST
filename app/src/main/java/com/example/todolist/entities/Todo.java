@@ -1,45 +1,15 @@
 package com.example.todolist.entities;
 
+import java.util.Date;
+
 public class Todo {
-    private Long id;
-    private String title;
-    private String description;
 
-    public Todo() {
-    }
+    public Long id;
+    public String title;
+    public String description;
+    public Boolean finished;
+    public Integer priority_level; // 1=High, 2=Medium, 3=Low
+    public Date created_at;
+    public Date complete_in;
 
-    public Todo(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-
-    public Todo(Long id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todolist.R;
-import com.example.todolist.db.CrudHelperImpl;
+import com.example.todolist.db.TodoRepository;
 import com.example.todolist.db.DbHandler;
 import com.example.todolist.entities.Todo;
 import com.example.todolist.views.TodoListAdapter;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findUsefulComponents();
-        fab.setOnClickListener(v -> startActivity(new Intent(this, AddActivity.class)));
+        fab.setOnClickListener(v -> startActivity(new Intent(this, RegisterTodoActivity.class)));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void populateRecyclerView(){
         DbHandler handler = new DbHandler(this);
-        CrudHelperImpl db = new CrudHelperImpl(handler);
+        TodoRepository db = new TodoRepository(handler);
         todos = db.findAll();
         todoAdapter = new TodoListAdapter(this, todos);
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteTodoFromDB(int pos) {
-        CrudHelperImpl db = new CrudHelperImpl(new DbHandler(this));
+        TodoRepository db = new TodoRepository(new DbHandler(this));
         db.delete(todos.get(pos));
         todos.remove(pos);
         todoAdapter.notifyItemRemoved(pos);
